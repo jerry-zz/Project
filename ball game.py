@@ -162,6 +162,7 @@ def Game():
 
 
 tk_start = Tk()
+tk_start.title('主页')
 canvas = Canvas(tk_start, width=500, height=500, bg='black')
 canvas.pack()
 bt_start = Button(tk_start, width=20, height=2, text='开始', command=Game)
