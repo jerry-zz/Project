@@ -87,8 +87,14 @@ def Game():
                 self.canvas.move(self.id, 200, 300)
                 self.x = 0
                 self.canvas_width = self.canvas.winfo_width()
-                self.canvas.bind_all('<KeyPress-Left>', self.turn_left)
-                self.canvas.bind_all('<KeyPress-Right>', self.turn_right)
+                but_left = Button(tk, width=20, height=4, text='左', command=self.turn_left_touch)
+                but_left.pack()
+                but_left.place(x=0, y=330)
+                but_right = Button(tk, width=20, height=4, text='右', command=self.turn_right_touch)
+                but_right.pack()
+                but_right.place(x=360, y=330)
+                self.canvas.bind_all('<KeyPress-Left>', self.turn_left_computer)
+                self.canvas.bind_all('<KeyPress-Right>', self.turn_right_computer)
 
             def draw(self):
                 self.canvas.move(self.id, self.x, 0)
@@ -98,14 +104,20 @@ def Game():
                 elif pos[2] >= self.canvas_width:
                     self.x = 0
 
-            def turn_left(self, evt):
+            def turn_left_computer(self, evt):
                 self.x = -3
 
-            def turn_right(self, evt):
+            def turn_right_computer(self, evt):
+                self.x = 3
+
+            def turn_left_touch(self):
+                self.x = -3
+
+            def turn_right_touch(self):
                 self.x = 3
 
         tk = Tk()
-        tk.title('Ball game')
+        tk.title('弹球游戏')
         tk.resizable(0, 0)
         tk.wm_attributes('-topmost', 1)
         canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0, bg='white')
@@ -163,6 +175,7 @@ def Game():
 
 tk_start = Tk()
 tk_start.title('主页')
+tk_start.resizable(0, 0)
 canvas = Canvas(tk_start, width=500, height=500, bg='black')
 canvas.pack()
 bt_start = Button(tk_start, width=20, height=2, text='开始', command=Game)
