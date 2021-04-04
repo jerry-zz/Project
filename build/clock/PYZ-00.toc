@@ -1,4 +1,4 @@
-('C:\\Users\\jerry\\Documents\\GitHub\\Project\\build\\clock\\PYZ-00.pyz',
+('C:\\Users\\jerry\\Documents\\GitHub\\Project\\build\\Clock\\PYZ-00.pyz',
  [('os', 'd:\\program files\\python\\python38\\lib\\os.py', 'PYMODULE'),
   ('subprocess',
    'd:\\program files\\python\\python38\\lib\\subprocess.py',

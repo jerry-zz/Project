@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['clock.py'],
+a = Analysis(['Clock.py'],
              pathex=['C:\\Users\\jerry\\Documents\\GitHub\\Project'],
              binaries=[],
              datas=[],
@@ -23,7 +23,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='clock',
+          name='Clock',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
