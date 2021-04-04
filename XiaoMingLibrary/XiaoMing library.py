@@ -18,7 +18,7 @@ def all_book():
 
         def tortoise_hare_race():
             tortoise_hare_race_file = open(
-                "C:\\Users\\jerry\\Documents\\GitHub\\Project\\XiaoMingLibrary\\Libraries\\童话_龟兔赛跑.txt",
+                "./Libraries\\童话_龟兔赛跑.txt",
                 encoding='utf8').read()
             tk_tortoise_hare_race = Tk()
             tk_tortoise_hare_race.resizable(0, 0)
@@ -30,7 +30,7 @@ def all_book():
 
         def Waiting_for_another_hare():
             Waiting_for_another_hare_file = open(
-                "C:\\Users\\jerry\\Documents\\GitHub\\Project\XiaoMingLibrary\\Libraries\\童话_农夫与蛇.txt",
+                "./Libraries\\童话_农夫与蛇.txt",
                 encoding='utf8').read()
             tk_Waiting_for_another_hare = Tk()
             tk_Waiting_for_another_hare.resizable(0, 0)
@@ -84,7 +84,7 @@ def all_book():
         tk_prose.resizable(0, 0)
 
         def fast():
-            fast_file = open("C:\\Users\\jerry\\Documents\\GitHub\\Project\\XiaoMingLibrary\\Libraries\\散文_匆匆.txt",
+            fast_file = open("./Libraries\\散文_匆匆.txt",
                              encoding='utf8').read()
             tk_fast = Tk()
             tk_fast.title('匆匆')
