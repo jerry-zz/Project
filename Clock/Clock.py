@@ -11,8 +11,8 @@ def egg():  # 创建一个彩蛋
     canvas_egg.create_text(250, 250, text='''小赖赖
   生日
   快乐!''', font=('Arial', 50), fill='white')
-    happy_birthday_photo = PhotoImage(file="C:\\Users\\jerry\\Documents\\GitHub\\Project\\Clock\\Birthday.gif")
-    canvas_egg.create_image(0, 0, anchor=NW, image=happy_birthday_photo)
+    birthday_photo = PhotoImage(file='Birthday.gif')
+    canvas_egg.create_image(0, 0, anchor=NW, image=birthday_photo)
     tk_egg.mainloop()
 
 
