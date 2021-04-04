@@ -141,7 +141,7 @@ def Game():
                     break
                 tk.update_idletasks()
                 tk.update()
-                time.sleep(0.01)
+                time.sleep(0.001)
                 if ball.hit_paddle(ball.canvas.coords(ball.id)) == True:
                     mark = mark + 1
                 canvas.delete(canvas_mark)
