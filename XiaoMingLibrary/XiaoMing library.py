@@ -87,7 +87,6 @@ def all_book():
             fast_file = open("C:\\Users\\jerry\\Documents\\GitHub\\Project\\XiaoMingLibrary\\Libraries\\散文_匆匆.txt",
                              encoding='utf8').read()
             tk_fast = Tk()
-            tk_fast.resizable(0, 0)
             tk_fast.title('匆匆')
             canvas = Canvas(tk_fast, width=740, height=400)
             canvas.pack()
