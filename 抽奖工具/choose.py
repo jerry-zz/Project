@@ -3,8 +3,10 @@ import time
 from tkinter import *
 
 tk = Tk()
-canvas = Canvas(tk, width=500, height=300, bg='black')
+tk.resizable(0, 0)
+canvas = Canvas(tk, width=500, height=300, bg='black', bd=0, highlightthickness=0)
 canvas.pack()
+
 a = canvas.create_text(250, 100, text='预备', font=('Arial', 50), fill='yellow')
 
 
