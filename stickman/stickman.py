@@ -72,7 +72,7 @@ class Game:
         while 1:
             if self.running == True:
                 for sprite in self.sprites:
-                    pass
+                    sprite.move()
                 self.tk.update_idletasks()
                 self.tk.update()
                 time.sleep(0.01)
@@ -84,12 +84,6 @@ class Sprite:
         self.endgame = False
         self.croodinates = None
 
-    def move(self):
-        pass
-
-    def croods(self):
-        return self.croodinates
-
 
 class PlatformSprite:
     def __init__(self, game, photo_image, x, y, width, height):
@@ -97,6 +91,126 @@ class PlatformSprite:
         self.photo_image = photo_image
         self.image = game.canvas.create_image(x, y, image=self.photo_image, anchor='nw')
         self.croodinates = Croods(x, y, x + width, y + height)
+
+
+class StickFigureSprite(Sprite):
+    def __init__(self, game):
+        Sprite.__init__(self, game)
+        self.images_left = [PhotoImage(file='火柴人_L1.gif'),
+                            PhotoImage(file='火柴人_L2.gif'),
+                            PhotoImage(file='火柴人_L3.gif')]
+        self.images_right = [PhotoImage(file='火柴人_R1.gif'),
+                             PhotoImage(file='火柴人_R2.gif'),
+                             PhotoImage(file='火柴人_R3.gif')]
+        self.image = game.canvas.create_image(200, 470, image=self.images_left[0], anchor='nw')
+        self.x = -2
+        self.y = 0
+        self.current_imange = 0
+        self.current_imange_add = 1
+        self.jump_count = 0
+        self.last_time = time.time()
+        self.croodinates = Croods()
+        game.canvas.bind_all('<KeyPress-Left>', self.turn_left)
+        game.canvas.bind_all('<KeyPress-Right>', self.turn_right)
+        game.canvas.bind_all('<space>', self.turn_jump)
+
+    def turn_left(self, evt):
+        if self.y == 0:
+            self.x = -2
+
+    def turn_right(self, evt):
+        if self.y == 0:
+            self.x = 2
+
+    def turn_jump(self, evt):
+        if self.y == 0:
+            self.y = -4
+            self.jump_count = 0
+
+    def animate(self):
+        if self.x != 0 and self.y == 0:
+            if time.time() - self.last_time > 0.1:
+                self.last_time = time.time()
+                self.current_imange += self.current_imange_add
+                if self.current_imange >= 2:
+                    self.current_imange_add = -1
+                if self.current_imange <= 0:
+                    self.current_imange_add = 1
+        if self.x < 0:
+            if self.y != 0:
+                self.game.canvas.itemcofig(self.image, image=self.images_left[2])
+            else:
+                self.game.canvas.itemcofig(self.image, image=self.images_left[self.current_imange])
+        elif self.x > 0:
+            if self.y != 0:
+                self.game.canvas.itemcofig(self.image, image=self.images_right[2])
+            else:
+                self.game.canvas.itemcofig(self.image, self.images_right[self.current_imange])
+
+    def croods(self):
+        xy = self.game.canvas.croods(self.image)
+        self.croodinates.x1 = xy[0]
+        self.croodinates.y1 = xy[1]
+        self.croodinates.x2 = xy[0] + 27
+        self.croodinates, y2 = xy[2] + 30
+        return self.croodinates
+
+    def move(self):
+        self.animate()
+        if self.y < 0:
+            self.jump_count += 1
+            if self.jump_count > 20:
+                self.y = 4
+        if self.y > 0:
+            self.jump_count -= 1
+            co = self.croods()
+            left = True
+            right = True
+            top = True
+            bottom = True
+            falling = True
+            if self.y > 0 and co.y2 >= self.game.canvas_heigh:
+                self.y = 0
+                bottom = False
+            elif self.y < 0 and co.y1 <= 0:
+                self.y = 0
+                top = False
+            if self.x > 0 and co.x2 >= self.game.canvas_width:
+                self.x = 0
+                right = False
+            elif self.x < 0 and co.x1 <= 0:
+                self.x = 0
+                left = False
+        for sprite in self.game.sprites:
+            if sprite == self:
+                continue
+            sprite_co = sprite.coords()
+            if top and self.y < 0 and collided_top(co, sprite_co):
+                self.y = -self.y
+                top = False
+            if bottom and self.y > 0 and collided_bottom(self.y, co, sprite_co):
+                self.y = sprite_co.y1 - co.y2
+                if self.y < 0:
+                    self.y = 0
+                bottom = False
+                top = False
+            if bottom and falling and self.y == 0 \
+                    and co.y2 < self.game.canvas_height \
+                    and collided_bottom(1, co, sprite_co):
+                falling = False
+            if left and self.x < 0 and collided_left(co, sprite_co):
+                self.x = 0
+                left = False
+                if sprite.endgame:
+                    self.game.running = False
+            if right and self.x > 0 and collided_right(co, sprite_co):
+                self.x = 0
+                right = False
+                if sprite.endgame:
+                    self.game.running = False
+        if falling and bottom and self.y == 0 and co.y2 < self.game.canvas_height:
+            self.y = 4
+        self.game.canvas.move(self.image, self.x, self.y)
 
 
 g = Game()
@@ -120,4 +234,6 @@ g.sprites.append(platform7)
 g.sprites.append(platform8)
 g.sprites.append(platform9)
 g.sprites.append(platform10)
+sf = StickFigureSprite(g)
+g.sprites.append(sf)
 g.mainloop()
