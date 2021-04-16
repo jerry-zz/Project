@@ -2,7 +2,7 @@ import time
 from tkinter import *
 
 
-class Croods:
+class Coords:
     def __init__(self, x1=0, y1=0, x2=0, y2=0):
         self.x1 = x1
         self.y1 = y1
@@ -36,6 +36,13 @@ def collided_left(co1, co2):
 def collided_right(co1, co2):
     if within_y(co1, co2):
         if co1.y2 <= co2.y2 and co1.y1 >= co2.y1:
+            return True
+    return False
+
+
+def collided_top(co1, co2):
+    if within_x(co1, co2):
+        if co1.y1 <= co2.y2 and co1.y1 >= co2.y1:
             return True
     return False
 
@@ -84,13 +91,19 @@ class Sprite:
         self.endgame = False
         self.croodinates = None
 
+    def move(self):
+        pass
 
-class PlatformSprite:
+    def coords(self):
+        return self.croodinates
+
+
+class PlatformSprite(Sprite):
     def __init__(self, game, photo_image, x, y, width, height):
         Sprite.__init__(self, game)
         self.photo_image = photo_image
         self.image = game.canvas.create_image(x, y, image=self.photo_image, anchor='nw')
-        self.croodinates = Croods(x, y, x + width, y + height)
+        self.croodinates = Coords(x, y, x + width, y + height)
 
 
 class StickFigureSprite(Sprite):
@@ -109,10 +122,10 @@ class StickFigureSprite(Sprite):
         self.current_imange_add = 1
         self.jump_count = 0
         self.last_time = time.time()
-        self.croodinates = Croods()
+        self.croodinates = Coords()
         game.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         game.canvas.bind_all('<KeyPress-Right>', self.turn_right)
-        game.canvas.bind_all('<space>', self.turn_jump)
+        game.canvas.bind_all('<space>', self.jump)
 
     def turn_left(self, evt):
         if self.y == 0:
@@ -122,7 +135,7 @@ class StickFigureSprite(Sprite):
         if self.y == 0:
             self.x = 2
 
-    def turn_jump(self, evt):
+    def jump(self, evt):
         if self.y == 0:
             self.y = -4
             self.jump_count = 0
@@ -147,7 +160,7 @@ class StickFigureSprite(Sprite):
             else:
                 self.game.canvas.itemcofig(self.image, self.images_right[self.current_imange])
 
-    def croods(self):
+    def coords(self):
         xy = self.game.canvas.croods(self.image)
         self.croodinates.x1 = xy[0]
         self.croodinates.y1 = xy[1]
@@ -163,7 +176,7 @@ class StickFigureSprite(Sprite):
                 self.y = 4
         if self.y > 0:
             self.jump_count -= 1
-            co = self.croods()
+            co = self.coords()
             left = True
             right = True
             top = True
