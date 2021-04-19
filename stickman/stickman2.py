@@ -114,16 +114,16 @@ class StickFigureSprite(Sprite):
     def __init__(self, game):
         Sprite.__init__(self, game)
         self.images_left = [
-            PhotoImage(file="火柴人L1.gif"),
-            PhotoImage(file="火柴人L2.gif"),
-            PhotoImage(file="火柴人L3.gif")
+            PhotoImage(file='火柴人_L1.gif'),
+            PhotoImage(file='火柴人_L2.gif'),
+            PhotoImage(file='火柴人_L3.gif')
         ]
         self.images_right = [
-            PhotoImage(file="火柴人R1.gif"),
-            PhotoImage(file="火柴人R2.gif"),
-            PhotoImage(file="火柴人R3.gif")
+            PhotoImage(file='火柴人_R1.gif'),
+            PhotoImage(file='火柴人_R2.gif'),
+            PhotoImage(file='火柴人_R3.gif')
         ]
-        self.image = game.canvas.create_image(200, 470, image=self.images_left[0], anchor='nw')
+        self.image = game.canvas.create_image(200, 70, image=self.images_left[0], anchor='nw')
         self.x = -2
         self.y = 0
         self.current_image = 0
@@ -133,7 +133,7 @@ class StickFigureSprite(Sprite):
         self.coordinates = Coords()
         game.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         game.canvas.bind_all('<KeyPress-Right>', self.turn_right)
-        game.canvas.bind_all('<space>', self.jump)
+        game.canvas.bind_all('<KeyPress-Up>', self.jump)
 
     def turn_left(self, evt):
         if self.y == 0:
@@ -145,7 +145,7 @@ class StickFigureSprite(Sprite):
 
     def jump(self, evt):
         if self.y == 0:
-            self.y = -4
+            self.y = -5
             self.jump_count = 0
 
     def animate(self):
@@ -215,9 +215,8 @@ class StickFigureSprite(Sprite):
                     self.y = 0
                 bottom = False
                 top = False
-            if bottom and falling and self.y == 0 \
-                    and co.y2 < self.game.canvas_height \
-                    and collided_bottom(1, co, sprite_co):
+            if bottom and falling and self.y == 0 and co.y2 < self.game.canvas_height and collided_bottom(1, co,
+                                                                                                          sprite_co):
                 falling = False
             if left and self.x < 0 and collided_left(co, sprite_co):
                 self.x = 0
