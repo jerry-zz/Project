@@ -116,7 +116,7 @@ class StickFigureSprite(Sprite):
                              PhotoImage(file='火柴人_R2.gif'),
                              PhotoImage(file='火柴人_R3.gif')]
         self.image = game.canvas.create_image(200, 470, image=self.images_left[0], anchor='nw')
-        self.x = -2
+        self.x = 0
         self.y = 0
         self.current_image = 0
         self.current_image_add = 1
