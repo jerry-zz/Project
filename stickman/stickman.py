@@ -109,13 +109,17 @@ class PlatformSprite(Sprite):
 class StickFigureSprite(Sprite):
     def __init__(self, game):
         Sprite.__init__(self, game)
-        self.images_left = [PhotoImage(file='火柴人_L1.gif'),
-                            PhotoImage(file='火柴人_L2.gif'),
-                            PhotoImage(file='火柴人_L3.gif')]
-        self.images_right = [PhotoImage(file='火柴人_R1.gif'),
-                             PhotoImage(file='火柴人_R2.gif'),
-                             PhotoImage(file='火柴人_R3.gif')]
-        self.image = game.canvas.create_image(200, 470, image=self.images_left[0], anchor='nw')
+        self.images_left = [
+            PhotoImage(file='火柴人_L1.gif'),
+            PhotoImage(file='火柴人_L2.gif'),
+            PhotoImage(file='火柴人_L3.gif')
+        ]
+        self.images_right = [
+            PhotoImage(file='火柴人_R1.gif'),
+            PhotoImage(file='火柴人_R2.gif'),
+            PhotoImage(file='火柴人_R3.gif')
+        ]
+        self.image = game.canvas.create_image(0, 450, image=self.images_left[0], anchor='nw')
         self.x = 0
         self.y = 0
         self.current_image = 0
