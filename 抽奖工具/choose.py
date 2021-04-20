@@ -6,7 +6,6 @@ tk = Tk()
 tk.resizable(0, 0)
 canvas = Canvas(tk, width=500, height=300, bg='black', bd=0, highlightthickness=0)
 canvas.pack()
-
 a = canvas.create_text(250, 100, text='预备', font=('Arial', 50), fill='yellow')
 
 
@@ -15,8 +14,8 @@ def start():
     with open(file=filename, encoding='utf8') as f:
         f = f.read()
         try:
-            file = eval(f)
-            file = list(range(0, file))
+            file = int(f) + 1
+            file = list(range(1, file))
             file = random.choice(file)
             canvas.itemconfig(a, text=file)
             time.sleep(0.1)
