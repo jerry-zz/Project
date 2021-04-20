@@ -1,6 +1,15 @@
 from tkinter import *
 
 
+class Biu:
+    def __init__(self, image):
+        self.image = image
+        canvas.bind_all('<KeyPress-space>', self.fire)
+
+    def fire(self):
+        self.id=canvas.create_image()
+
+
 class Ship:
     def __init__(self, image, x, y, width):
         self.width = width
@@ -34,5 +43,6 @@ biu_photo = PhotoImage(file='子弹.gif')
 spaceman_photo = PhotoImage(file='外星人.gif')
 bomb_photo = PhotoImage(file='爆炸.gif')
 canvas.create_image(0, 0, image=bg_photo, anchor='nw')
+biu = Biu(biu_photo)
 ship = Ship(ship_photo, 250, 400, 60)
 canvas.mainloop()
