@@ -11,7 +11,7 @@ ship_photo=PhotoImage(file='飞船.gif')
 ship=Ship(ship_photo)
 def go():
     canvas.move(ship.id,0,-1)
-tk.mainloop()
 while 1:
     go()
+    tk.update()
     time.sleep(0.01)
