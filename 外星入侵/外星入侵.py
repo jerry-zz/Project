@@ -9,10 +9,9 @@ class Biu:
         canvas.bind_all('<space>', self.fire)
 
     def fire(self, evt):
-        ship_pos = canvas.coords(self.ship.id)
-        self.id = canvas.create_image(ship_pos[0]+self.ship.width/2,ship_pos[1],image=self.image)
-        canvas.move(self.id, 0, -1)
 
+        ship_pos = canvas.coords(self.ship.id)
+        self.id = canvas.create_image(ship_pos[0]+self.ship.width/2, ship_pos[1], image=self.image)
 
 class Ship:
     def __init__(self, image, x, y, width,height,v):
