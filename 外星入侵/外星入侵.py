@@ -2,19 +2,19 @@ import time
 from tkinter import *
 
 
-class Biu:#创建子弹类
+class Biu:  # 创建子弹类
     def __init__(self, image, ship):
         self.ship = ship
         self.image = image
-        canvas.bind_all('<space>',self.fire)#用空格控制
+        canvas.bind_all('<space>', self.fire)  # 用空格控制
 
-    def fire(self,evt):
-        ship_pos = canvas.coords(self.ship.id)#检测飞船位置
-        self.id = canvas.create_image(ship_pos[0]+self.ship.width/2, ship_pos[1], image=self.image)#插入子弹图像
+    def fire(self, evt):
+        ship_pos = canvas.coords(self.ship.id)  # 检测飞船位置
+        self.id = canvas.create_image(ship_pos[0] + self.ship.width / 2, ship_pos[1], image=self.image)  # 插入子弹图像
         while True:
             canvas.move(self.id, 0, -5)
             tk.update()
-            time.sleep(0.01)#移动
+            time.sleep(0.01)  # 移动
 
 
 class Ship:
@@ -23,12 +23,13 @@ class Ship:
         self.width = width
         self.height = height
         self.v = v
-        self.id = canvas.create_image(x-self.width/2, y-self.height/2, image=self.image,anchor='nw')#插入飞船图像
+        self.id = canvas.create_image(x - self.width / 2, y - self.height / 2, image=self.image, anchor='nw')  # 插入飞船图像
         self.x = 0
         self.canvas_width = 500
         canvas.bind_all('<KeyPress-Left>', self.left)
-        canvas.bind_all('<KeyPress-Right>', self.right)#用'左','右'键控制
+        canvas.bind_all('<KeyPress-Right>', self.right)  # 用'左','右'键控制
         self.pos = []
+
     def left(self, evt):
         self.pos = canvas.coords(self.id)
         if self.pos[0] > 0:
@@ -44,13 +45,13 @@ tk = Tk()
 tk.title('外星入侵')
 tk.resizable(0, 0)
 canvas = Canvas(tk, width=500, height=500, bd=0, highlightthickness=0)
-canvas.pack()#创建画布
+canvas.pack()  # 创建画布
 bg_photo = PhotoImage(file='背景.gif')
 ship_photo = PhotoImage(file='飞船.gif')
 biu_photo = PhotoImage(file='子弹.gif')
 spaceman_photo = PhotoImage(file='外星人.gif')
-bomb_photo = PhotoImage(file='爆炸.gif')#填入图像文件
-canvas.create_image(250, 250, image=bg_photo)#插入背景图像
-ship=Ship(ship_photo,250,400,60,60,5)
-biu=Biu(biu_photo,ship)
+bomb_photo = PhotoImage(file='爆炸.gif')  # 填入图像文件
+canvas.create_image(250, 250, image=bg_photo)  # 插入背景图像
+ship = Ship(ship_photo, 250, 400, 60, 60, 5)
+biu = Biu(biu_photo, ship)
 tk.mainloop()
