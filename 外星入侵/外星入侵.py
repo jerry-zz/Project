@@ -24,7 +24,6 @@ class Spaceman:
 
 class Biu:  # 创建子弹类
     def __init__(self, image, ship):
-        self.spaceman = spaceman
         self.ship = ship
         self.image = image
         canvas.bind_all('<space>', self.fire)  # 用空格控制
