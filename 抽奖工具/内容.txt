@@ -1,1 +1,1 @@
-30
+hello,hi,hey,no,yes
