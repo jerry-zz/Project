@@ -11,20 +11,26 @@ def Game():
     tk_level_time.title('难度等级,时间设置')
     tk_level_time.resizable(0, 0)
 
-    def level_up():
+    def level_up(num):
         global level
-        level = level + 1
+        level = level + num
         canvas_level_time.delete('all')
         canvas_level_time.create_text(200, 120, text='时间:%s分钟' % game_time, font=('Arial', 30))
         canvas_level_time.create_text(200, 60, text='难度等级:%s级' % level, font=('Arial', 30))
 
-    def level_down():
+    def level_down(num):
         global level
         if level > 0:
-            level = level - 1
+            level = level - num
             canvas_level_time.delete('all')
             canvas_level_time.create_text(200, 120, text='时间:%s分钟' % game_time, font=('Arial', 30))
             canvas_level_time.create_text(200, 60, text='难度等级:%s级' % level, font=('Arial', 30))
+
+    def level_up1():
+        level_up(1)
+
+    def level_down1():
+        level_down(1)
 
     def time_up():
         global game_time
@@ -44,6 +50,7 @@ def Game():
     def level_time_sure():
         mark = 0
         start_time = time.time()
+        tk_level_time.quit()
 
         class Ball:
             def __init__(self, canvas, paddle, color):
@@ -136,12 +143,13 @@ def Game():
                 if ball.hit_bottom == False:
                     ball.draw()
                     paddle.draw()
+                    level_up(0.001)
 
                 else:
                     break
                 tk.update_idletasks()
                 tk.update()
-                time.sleep(0.001)
+                time.sleep(0.01)
                 if ball.hit_paddle(ball.canvas.coords(ball.id)) == True:
                     mark = mark + 1
                 canvas.delete(canvas_mark)
@@ -153,10 +161,10 @@ def Game():
 
     canvas_level_time = Canvas(tk_level_time, width=400, height=200, bd=0, bg='yellow')
     canvas_level_time.pack()
-    bt_level_up = Button(tk_level_time, text='难度等级+1', command=level_up)
+    bt_level_up = Button(tk_level_time, text='难度等级+1', command=level_up1)
     bt_level_up.pack()
     bt_level_up.place(x=10, y=45)
-    bt_level_down = Button(tk_level_time, text='难度等级-1', command=level_down)
+    bt_level_down = Button(tk_level_time, text='难度等级-1', command=level_down1)
     bt_level_down.pack()
     bt_level_down.place(x=320, y=45)
     bt_sure = Button(tk_level_time, text='确定', command=level_time_sure)
