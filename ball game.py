@@ -61,7 +61,7 @@ def Game():
                 starts = [-3, -2, -1, 1, 2, 3]
                 random.shuffle(starts)
                 self.x = starts[0]
-                self.y = -3
+                self.y = -level
                 self.canvas_height = self.canvas.winfo_height()
                 self.canvas_width = self.canvas.winfo_width()
                 self.hit_bottom = False
