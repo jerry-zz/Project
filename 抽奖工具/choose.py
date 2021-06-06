@@ -3,6 +3,7 @@ import time
 from tkinter import *
 
 tk = Tk()
+tk.title('抽奖工具')
 tk.resizable(0, 0)
 canvas = Canvas(tk, width=500, height=300, bg='black', bd=0, highlightthickness=0)
 canvas.pack()
