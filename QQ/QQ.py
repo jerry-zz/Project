@@ -1,5 +1,5 @@
 import pyautogui as gui
-
+import time
 filename = '刷屏用语.txt'
 with open(file=filename, encoding='utf8') as word:
     word = word.read()
